@@ -38,7 +38,7 @@ characterArray = [["darthMaul","ObiWanKenobi","DarthVader","QuiGonJinn"],["asset
 
 
 
-for(i=0; i<4; i++)
+for(i=0; i<characterArray[0].length; i++)
 {
   var newimg = $("<img>");
   newimg.attr("src", (characterArray[1][i]));
@@ -59,9 +59,30 @@ if($(this).hasClass("characterImg"))
 {
 
   testArray.splice(testArray.indexOf($(this).attr("value")),1)
+
   console.log($(this).attr("value"))
 }
 
 
 
+
+for(j=0;j<characterArray.length;j++)
+
+{
+  var newimg = $("<img>");
+
+  for(k=0;k<testArray.length;k++)
+  {
+  if(characterArray[j] === testArray[k] )
+
+
+  newimg.attr("src", (characterArray[1][j]));
+  newimg.attr("class", "enemiesImg");
+  newimg.attr("value" , (characterArray[0][j]));
+  $("#enemies").append(newimg);
+
+}
+
+
+}
 });
