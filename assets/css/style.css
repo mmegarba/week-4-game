@@ -9,6 +9,7 @@ body{
 
 width:100px;
 height:100px;
+position: relative;
 
 }
 
@@ -17,5 +18,15 @@ height:100px;
 .enemiesImg{
   width:100px;
   height:100px;
+
+}
+
+
+#charFrame{
+  border-style:solid;
+  border-width:5px;
+  float:left;
+  text-align:center;
+  padding:30px;
 
 }
