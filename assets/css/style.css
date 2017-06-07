@@ -18,6 +18,7 @@ position: relative;
 .enemiesImg{
   width:100px;
   height:100px;
+  clear:both;
 
 }
 
@@ -28,5 +29,12 @@ position: relative;
   float:left;
   text-align:center;
   padding:30px;
+}
+
+
+#enemies{
+clear:both;
+border-style:solid;
+
 
 }
