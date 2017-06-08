@@ -7,7 +7,7 @@ body{
 
 .characterImg{
 
-width:100px;
+width:200px;
 height:100px;
 position: relative;
 
@@ -16,25 +16,43 @@ position: relative;
 
 
 .enemiesImg{
-  width:100px;
+  width:200px;
   height:100px;
   clear:both;
 
 }
 
 
-#charFrame{
-  border-style:solid;
-  border-width:5px;
-  float:left;
-  text-align:center;
-  padding:30px;
+#characterstoChoose{
+
+
+
 }
+
+
 
 
 #enemies{
 clear:both;
-border-style:solid;
+}
 
+
+
+#charFrame{
+  border-style:solid;
+  border-width:2px;
+  float:left;
+  text-align:center;
+  background-color:lightgreen;
+  display:inline-block;
+}
+
+#enemiesFrame{
+  background-color:red;
+  border-style:solid;
+  border-width:2px;
+  clear:both;
+  text-align:center;
+  display:inline-block;
 
 }

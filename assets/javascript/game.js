@@ -37,51 +37,49 @@ var characters = [
 
 ]
 
+
+
 var currentAttacker;
 var currentDefender;
 var currentD;
 var currentA;
 
+var enemyArray = [];
 
 
-
+// function to update the hitpoints of current characters
 function updateStats(){
 
 console.log(parseInt(characters[currentA].hitpoints))
 console.log(parseInt(characters[currentD].hitpoints))
 
-
 }
 
 
-
+// start game load characters (include in game init)
 for(i=0; i<characters.length; i++)
 {
   var newimg = $("<img>");
   var newdiv = $("<div>");
   newdiv.attr("Id", "charFrame");
 
-  var newspanHit = $("<span>");
-  var newspanName= $("<span>");
+  var newHit = $("<p>");
+  var newName= $("<p>");
 
-  newspanHit.html(characters[i].hitpoints)
-  newspanName.html(characters[i].name)
+  newHit.html(characters[i].hitpoints)
+  newName.html(characters[i].name)
 
   newimg.attr("src", (characters[i].img));
   newimg.attr("value", (characters[i].name))
   newimg.attr("class", "characterImg");
-  // newimg.attr("value" , (characterArray[0][i]))
   $("#characterstochoose").append(newdiv);
   newdiv.append(newimg);
 
-  newimg.before(newspanHit);
-  newimg.after(newspanName);
-  // testArray.push(characterArray[0][i]);
-  // testArray2.push(characterArray[1][i]);
+  newimg.before(newHit);
+  newimg.after(newName);
+
 
 }
-//
-//
 
 
 $("#enemies").on("click","img",function(){
@@ -97,12 +95,27 @@ $("#enemies").on("click","img",function(){
       if(characters[j].name === $(this).attr("value"))
 
       {
-        var enemyImg = $("<img>");
-        enemyImg.attr("src", (characters[j].img));
-        enemyImg.attr("value", (characters[j].name))
-        enemyImg.attr("class", "characterImg");
-        enemyImg.attr("data", "defender")
-        $("#Defender").append(enemyImg)
+        var newImg = $("<img>");
+
+        var newdiv = $("<div>");
+        newdiv.attr("Id", "charFrame");
+
+        newImg.attr("src", (characters[j].img));
+        newImg.attr("value", (characters[j].name))
+        newImg.attr("class", "characterImg");
+        newImg.attr("data", "defender")
+        $("#Defender").append(newdiv);
+        newdiv.append(newImg);
+
+        var newHit = $("<p>");
+        var newName = $("<p>");
+
+        newHit.html(characters[j].hitpoints)
+        newName.html(characters[j].name)
+
+        newImg.before(newHit);
+        newImg.after(newName);
+
 
         currentDefender = characters[j].name;
         currentD = j
@@ -119,11 +132,9 @@ $("#enemies").on("click","img",function(){
 
 
 
-
-
 $("#characterstochoose").on("click","img",function(){
 
-// for picking a attacker
+// for picking a attacker and setting the enemy list
   if($(this).hasClass("characterImg"))
 {
 
@@ -134,10 +145,26 @@ $("#characterstochoose").on("click","img",function(){
 
   {
     var newimg = $("<img>");
+
+    var newdiv = $("<div>");
+    newdiv.attr("Id", "enemiesFrame");
+
+
     newimg.attr("src", (characters[i].img));
     newimg.attr("value", (characters[i].name))
     newimg.attr("class", "enemiesImg");
-    $("#enemies").append(newimg);
+    $("#enemies").append(newdiv);
+    newdiv.append(newimg);
+
+    var newHit = $("<p>");
+    var newName= $("<p>");
+
+    newHit.html(characters[i].hitpoints)
+    newName.html(characters[i].name)
+
+
+    newimg.before(newHit);
+    newimg.after(newName);
 
 
   }
@@ -145,10 +172,28 @@ $("#characterstochoose").on("click","img",function(){
   else{
     $("#characterstochoose").empty()
     var newimg = $("<img>");
+
+
+    var newdiv = $("<div>");
+    newdiv.attr("Id", "charFrame");
+
     newimg.attr("src", (characters[i].img));
     newimg.attr("value", (characters[i].name))
     newimg.attr("class", "characterImg");
-    $("#characterstochoose").append(newimg)
+    $("#characterstochoose").append(newdiv);
+    newdiv.append(newimg)
+
+    var newHit = $("<p>");
+    var newName= $("<p>");
+
+    newHit.html(characters[i].hitpoints)
+    newName.html(characters[i].name)
+
+
+    newimg.before(newHit);
+    newimg.after(newName);
+
+
 
     currentAttacker = characters[i].name;
     currentA = i;
@@ -169,6 +214,19 @@ $("#attack").on("click", function(){
 $(".characterImg").each(function()
 
 {
+
+  if(characters[currentA].hitpoints <= 0)
+  {
+    console.log("game over");
+
+  }
+
+  if(characters[currentD].hitpoints <= 0)
+
+  {
+    console.log("victory");
+  }
+
   if($(this).attr("value") === currentDefender)
 {
     characters[currentD].hitpoints = parseInt(characters[currentD].hitpoints)  -  parseInt(characters[currentA].attackPwr)
@@ -193,7 +251,6 @@ updateStats()
 
 
 });
-
 
 
 //
