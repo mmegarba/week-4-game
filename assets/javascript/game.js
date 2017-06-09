@@ -64,6 +64,8 @@ if(characters[i].name != currentAttacker && characters[i].name != currentDefende
 
   newHit.html(characters[i].hitpoints)
   newName.html(characters[i].name)
+  newHit.attr("class","stats");
+  newName.attr("class","stats");
 
   newimg.attr("src", (characters[i].img));
   newimg.attr("value", (characters[i].name))
@@ -108,6 +110,8 @@ for(i=0; i<characters.length; i++)
 
   newHit.html(characters[i].hitpoints)
   newName.html(characters[i].name)
+  newHit.attr("class","stats");
+  newName.attr("class","stats");
 
   newimg.attr("src", (characters[i].img));
   newimg.attr("value", (characters[i].name))
@@ -153,6 +157,9 @@ $("#enemies").on("click","img",function(){
 
         newHit.html(characters[j].hitpoints)
         newName.html(characters[j].name)
+
+        newHit.attr("class","stats");
+        newName.attr("class","stats");
 
         newImg.before(newHit);
         newImg.after(newName);
@@ -205,6 +212,9 @@ $("#characterstochoose").on("click","img",function(){
     var newHit = $("<p>");
     var newName= $("<p>");
 
+    newHit.attr("class","stats");
+    newName.attr("class","stats");
+
     newHit.html(characters[i].hitpoints)
     newName.html(characters[i].name)
 
@@ -234,6 +244,10 @@ $("#characterstochoose").on("click","img",function(){
 
     var newName= $("<p>");
 
+
+    newHit.attr("class","stats");
+    newName.attr("class","stats");
+    
     newHit.html(characters[i].hitpoints)
     newName.html(characters[i].name)
 
@@ -309,6 +323,9 @@ $(".characterImg").each(function()
   }
 
 });
+
+characters[currentA].attackPwr =  parseInt(characters[currentA].attackPwr) +  parseInt(characters[currentA].attackPwr);
+
 
 
 
