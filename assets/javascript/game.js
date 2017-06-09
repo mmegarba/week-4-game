@@ -47,11 +47,50 @@ var currentA;
 var enemyArray = [];
 
 
+
+function newDisplay(){
+  $("#enemies").empty();
+  for (var i = 0; i < characters.length; i++) {
+if(characters[i].name != currentAttacker && characters[i].name != currentDefender)
+{
+  var newimg = $("<img>");
+  var newdiv = $("<div>");
+  newdiv.attr("Id", "enemiesFrame");
+
+  var newHit = $("<p>");
+  var newName= $("<p>");
+
+  newHit.html(characters[i].hitpoints)
+  newName.html(characters[i].name)
+
+  newimg.attr("src", (characters[i].img));
+  newimg.attr("value", (characters[i].name))
+  newimg.attr("class", "enemiesImg");
+  $("#enemies").append(newdiv);
+  newdiv.append(newimg);
+
+  newimg.before(newHit);
+  newimg.after(newName);
+}
+}
+}
+
+
+
+
+
+
+
+
 // function to update the hitpoints of current characters
 function updateStats(){
 
 console.log(parseInt(characters[currentA].hitpoints))
 console.log(parseInt(characters[currentD].hitpoints))
+
+$("#attackerStats").html(characters[currentA].hitpoints)
+$("#defenderStats").html(characters[currentD].hitpoints)
+
 
 }
 
@@ -108,7 +147,8 @@ $("#enemies").on("click","img",function(){
         newdiv.append(newImg);
 
         var newHit = $("<p>");
-        var newName = $("<p>");
+        newHit.attr("id","defenderStats")
+        var newName = $("<p>")
 
         newHit.html(characters[j].hitpoints)
         newName.html(characters[j].name)
@@ -120,12 +160,15 @@ $("#enemies").on("click","img",function(){
         currentDefender = characters[j].name;
         currentD = j
 
+        newDisplay()
+      }
+
 
       }
 
     }
 
-  }
+
 
   });
 
@@ -184,6 +227,8 @@ $("#characterstochoose").on("click","img",function(){
     newdiv.append(newimg)
 
     var newHit = $("<p>");
+    newHit.attr("id","attackerStats");
+
     var newName= $("<p>");
 
     newHit.html(characters[i].hitpoints)
@@ -209,28 +254,31 @@ $("#attack").on("click", function(){
 // check to see if hitpoints not below zero for either attacker or defender
 
 // if()
+if(characters[currentA].hitpoints <= 0)
+{
+  console.log("game over");
 
+}
+
+if(characters[currentD].hitpoints <= 0)
+
+{
+  console.log("victory");
+  $("#Defender").html("Empty select a new defender")
+}
 
 $(".characterImg").each(function()
 
 {
 
-  if(characters[currentA].hitpoints <= 0)
-  {
-    console.log("game over");
 
-  }
-
-  if(characters[currentD].hitpoints <= 0)
-
-  {
-    console.log("victory");
-  }
 
   if($(this).attr("value") === currentDefender)
 {
     characters[currentD].hitpoints = parseInt(characters[currentD].hitpoints)  -  parseInt(characters[currentA].attackPwr)
     console.log(currentDefender)
+
+    updateStats();
   }
 
   if($(this).attr("value") === currentAttacker)
@@ -239,6 +287,8 @@ $(".characterImg").each(function()
   {
     characters[currentA].hitpoints = parseInt(characters[currentA].hitpoints) - parseInt(characters[currentD].counteratkPwr)
     console.log(currentAttacker)
+
+  updateStats();
 
   }
 
