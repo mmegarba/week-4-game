@@ -1,7 +1,7 @@
 var characters = [
 
   {
-  name:"darthMaul",
+  name:"Darth Maul",
   hitpoints:"150",
   attackPwr:"20",
   counteratkPwr:"5",
@@ -10,7 +10,7 @@ var characters = [
 },
 
   {
-    name:"ObiWanKenobi",
+    name:"Obi Wan Kenobi",
     hitpoints:"100",
     attackPwr:"10",
     counteratkPwr:"10",
@@ -20,7 +20,7 @@ var characters = [
 
 
 {
-    name:"DarthSidious",
+    name:"Darth Sidious",
     hitpoints:"200",
     attackPwr:"5",
     counteratkPwr:"5",
@@ -28,7 +28,7 @@ var characters = [
 },
 
 {
-    name:"QuiGonJinn",
+    name:"Qui Gon Jinn",
     hitpoints:"125",
     attackPwr:"7",
     counteratkPwr:"5",
@@ -41,17 +41,19 @@ var characters = [
 
 var currentAttacker;
 var currentDefender;
+var lastDefender;
 var currentD;
 var currentA;
-
-var enemyArray = [];
+var lockPlay = false;
+var trackingArray = ["Darth Maul","Obi Wan Kenobi","Darth Sidious","Qui Gon Jinn"];
 
 
 
 function newDisplay(){
   $("#enemies").empty();
   for (var i = 0; i < characters.length; i++) {
-if(characters[i].name != currentAttacker && characters[i].name != currentDefender)
+
+if(characters[i].name != currentAttacker && characters[i].name != currentDefender  && characters[i].name != lastDefender )
 {
   var newimg = $("<img>");
   var newdiv = $("<div>");
@@ -74,7 +76,6 @@ if(characters[i].name != currentAttacker && characters[i].name != currentDefende
 }
 }
 }
-
 
 
 
@@ -159,6 +160,8 @@ $("#enemies").on("click","img",function(){
 
         currentDefender = characters[j].name;
         currentD = j
+        trackingArray.splice((trackingArray.indexOf(currentDefender)),1)
+        lockPlay = false;
 
         newDisplay()
       }
@@ -242,6 +245,9 @@ $("#characterstochoose").on("click","img",function(){
 
     currentAttacker = characters[i].name;
     currentA = i;
+
+    trackingArray.splice((trackingArray.indexOf(currentAttacker)),1)
+
   }
 }
 
@@ -252,8 +258,15 @@ $("#characterstochoose").on("click","img",function(){
 $("#attack").on("click", function(){
 
 // check to see if hitpoints not below zero for either attacker or defender
+if(characters.length === 1)
+{
+  alert("game win")
+  gameWin = true;
+  return 0;
+}
 
-// if()
+if(lockPlay != true)
+{
 if(characters[currentA].hitpoints <= 0)
 {
   console.log("game over");
@@ -265,6 +278,9 @@ if(characters[currentD].hitpoints <= 0)
 {
   console.log("victory");
   $("#Defender").html("Empty select a new defender")
+  lastDefender= currentDefender;
+  characters.splice(currentD,1);
+  lockPlay = true;
 }
 
 $(".characterImg").each(function()
@@ -298,7 +314,7 @@ $(".characterImg").each(function()
 
 updateStats()
 
-
+}
 
 });
 
