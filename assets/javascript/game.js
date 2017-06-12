@@ -55,7 +55,7 @@ var lockPlay = false;
 var lockAttacker = false;
 var lockEnemies = false;
 var trackingArray = ["Darth Maul","Obi Wan Kenobi","Darth Vader","Qui Gon Jinn","Yoda"];
-var sounds = [["assets/audio/saberon.mp3"],["assets/audio/saberclash.mp3","assets/audio/saberclash1.mp3","assets/audio/saberclash2.mp3","assets/audio/saberclash3.mp3"],["assets/audio/spin1.mp3","assets/audio/spin2.mp3","assets/audio/spin6.mp3"]]
+var sounds = [["assets/audio/saberon.mp3"],["assets/audio/saberclash.mp3","assets/audio/saberclash1.mp3","assets/audio/saberclash2.mp3","assets/audio/saberclash3.mp3","assets/audio/saberclash4.mp3","assets/audio/saberclash5.mp3","assets/audio/saberclash6.mp3"],["assets/audio/spin1.mp3","assets/audio/spin2.mp3","assets/audio/spin6.mp3","assets/audio/spin5.mp3","assets/audio/spin4.mp3","assets/audio/spin3.mp3"]]
 var baseAtkPwr;
 var gameOver = false;
 
