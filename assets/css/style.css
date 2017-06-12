@@ -153,4 +153,16 @@ h2{
     display:block !important;
   }
 
+  #battleText{
+
+    color: black;
+    position:relative;
+    font-size: 12pt;
+    width:80%;
+    background:beige;
+    top:20px;
+    left:1%;
+
+  }
+
 }
