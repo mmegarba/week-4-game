@@ -115,6 +115,19 @@ margin-left:25%;
 
 
 }
+
+
+#gameStatus{
+
+  font-size: 16pt;
+  width:80%;
+  background:beige;
+  color: black;
+  position:relative;
+  top:40px;
+  right:110px;
+
+}
 h2{
   color:red;
 }

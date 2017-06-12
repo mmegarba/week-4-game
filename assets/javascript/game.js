@@ -47,7 +47,7 @@ var characters = [
 
 
 var currentAttacker;
-var currentDefender;
+var currentDefender = "";
 var lastDefender;
 var currentD;
 var currentA;
@@ -57,12 +57,28 @@ var lockEnemies = false;
 var trackingArray = ["Darth Maul","Obi Wan Kenobi","Darth Vader","Qui Gon Jinn","Yoda"];
 var sounds = [["assets/audio/saberon.mp3"],["assets/audio/saberclash.mp3","assets/audio/saberclash1.mp3","assets/audio/saberclash2.mp3","assets/audio/saberclash3.mp3"],["assets/audio/spin1.mp3","assets/audio/spin2.mp3","assets/audio/spin6.mp3"]]
 var baseAtkPwr;
+var gameOver = false;
 
 
 $("#reset").on("click", function()
 {
 window.location.reload();
 });
+
+
+
+function win(){
+$("#gameStatus").html("You are Victorious!")
+
+}
+
+function loss(){
+
+  $("#gameStatus").html(characters[currentD].name + " has defeated you" + "<br>" + "Press Reset Game to play again.")
+
+
+}
+
 
 
 
@@ -227,6 +243,7 @@ if(lockEnemies === false)
         lockPlay = false;
         lockEnemies = true;
       $("#pickAudio")[0].play();
+      $("#gameStatus").empty();
 
         newDisplay()
       }
@@ -333,9 +350,12 @@ if(lockAttacker === false)
 
 $("#attack").on("click", function(){
 
-
+  if(currentDefender === "")
+  {
+    $("#gameStatus").html("No defender to attack, please choose one.")
+  }
 // only allow attack to happen if there is a defendr
-if(lockPlay != true)
+if(lockPlay != true && gameOver === false)
 {
 
 // game logic
@@ -369,6 +389,12 @@ $(".characterImg").each(function()
 
 characters[currentA].attackPwr =  parseInt(characters[currentA].attackPwr) +  parseInt(baseAtkPwr);
 
+
+if(characters[currentA].hitpoints <= 0)
+{
+loss();
+gameOver= true
+}
 if(characters[currentD].hitpoints <= 0)
 
 {
@@ -385,17 +411,14 @@ if(characters[currentD].hitpoints <= 0)
 }
 
 
-if(characters[currentA].hitpoints <= 0)
-{
-  console.log("game over");
 
-}
 
 
 if(trackingArray.length === 1)
 {
-  alert("game win")
-  gameWin = true;
+
+  win();
+  gameOver = true;
   return 0;
 }
 
@@ -404,6 +427,8 @@ randomSounds("attackSound");
 
 updateStats();
 }
+
+
 
 });
 
