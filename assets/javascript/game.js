@@ -20,11 +20,11 @@ var characters = [
 
 
 {
-    name:"Darth Sidious",
+    name:"Darth Vader",
     hitpoints:"200",
     attackPwr:"5",
     counteratkPwr:"5",
-    img:"assets/images/Darth-Sidious.png",
+    img:"assets/images/Vader.jpg",
 },
 
 {
@@ -35,6 +35,14 @@ var characters = [
     img:"assets/images/Qui Gon Jinn.jpeg",
 },
 
+{
+  name:"Yoda",
+  hitpoints:"175",
+  attackPwr:"7",
+  counteratkPwr:"5",
+  img:"assets/images/yoda.jpg",
+
+},
 ]
 
 
@@ -45,7 +53,17 @@ var lastDefender;
 var currentD;
 var currentA;
 var lockPlay = false;
-var trackingArray = ["Darth Maul","Obi Wan Kenobi","Darth Sidious","Qui Gon Jinn"];
+var lockAttacker = false;
+var lockEnemies = false;
+var trackingArray = ["Darth Maul","Obi Wan Kenobi","Darth Vader","Qui Gon Jinn","Yoda"];
+var sounds = [["assets/audio/saberon.mp3"],["assets/audio/saberclash.mp3","assets/audio/saberclash1.mp3","assets/audio/saberclash2.mp3","assets/audio/saberclash3.mp3"],["assets/audio/spin1.mp3","assets/audio/spin2.mp3","assets/audio/spin6.mp3"]]
+
+
+
+$("#reset").on("click", function()
+{
+window.location.reload();
+});
 
 
 
@@ -53,7 +71,7 @@ function newDisplay(){
   $("#enemies").empty();
   for (var i = 0; i < characters.length; i++) {
 
-if(characters[i].name != currentAttacker && characters[i].name != currentDefender  && characters[i].name != lastDefender )
+if(characters[i].name != currentAttacker && characters[i].name != currentDefender  && characters[i].name != lastDefender && characters[i] != "" )
 {
   var newimg = $("<img>");
   var newdiv = $("<div>");
@@ -80,7 +98,30 @@ if(characters[i].name != currentAttacker && characters[i].name != currentDefende
 }
 
 
+function randomSounds(x){
 
+  var randomClash = sounds[1][Math.floor(Math.random()*sounds[1].length)];
+  var randomSpin = sounds[2][Math.floor(Math.random()*sounds[1].length)];
+  if(x === "pickSound")
+  {
+    $("#audio").attr("src", sounds[0][0])
+    $("#audio")[0].play();
+
+  }
+
+  if(x=== "attackSound")
+  {
+  $("#audio").attr("src", randomClash)
+  $("#audio")[0].play();
+}
+
+  if(x=== "attackSpin")
+  {
+    $("#audio").attr("src", randomSpin)
+    $("#audio")[0].play();
+
+  }
+}
 
 
 
@@ -96,6 +137,8 @@ $("#defenderStats").html(characters[currentD].hitpoints)
 
 
 }
+
+
 
 
 // start game load characters (include in game init)
@@ -129,7 +172,8 @@ for(i=0; i<characters.length; i++)
 $("#enemies").on("click","img",function(){
 
   // for picking a defender
-
+if(lockEnemies === false)
+{
   if($(this).hasClass("enemiesImg"))
   {
 
@@ -142,18 +186,32 @@ $("#enemies").on("click","img",function(){
         var newImg = $("<img>");
 
         var newdiv = $("<div>");
-        newdiv.attr("Id", "charFrame");
+        newdiv.attr("Id", "defenderFrame");
 
         newImg.attr("src", (characters[j].img));
         newImg.attr("value", (characters[j].name))
         newImg.attr("class", "characterImg");
-        newImg.attr("data", "defender")
         $("#Defender").append(newdiv);
         newdiv.append(newImg);
 
         var newHit = $("<p>");
-        newHit.attr("id","defenderStats")
         var newName = $("<p>")
+
+        var newAudio = $("<audio>")
+        newAudio.attr("id" , "pickAudio")
+
+        var newSource = $("<source>")
+        newSource.attr("src","assets/audio/saberon.mp3")
+        newSource.attr("type", "audio/mpeg")
+        $("#Defender").append(newAudio);
+
+
+        newAudio.append(newSource);
+
+
+        newHit.attr("id","defenderStats")
+
+
 
         newHit.html(characters[j].hitpoints)
         newName.html(characters[j].name)
@@ -167,8 +225,9 @@ $("#enemies").on("click","img",function(){
 
         currentDefender = characters[j].name;
         currentD = j
-        trackingArray.splice((trackingArray.indexOf(currentDefender)),1)
         lockPlay = false;
+        lockEnemies = true;
+      $("#pickAudio")[0].play();
 
         newDisplay()
       }
@@ -178,7 +237,7 @@ $("#enemies").on("click","img",function(){
 
     }
 
-
+}
 
   });
 
@@ -187,6 +246,8 @@ $("#enemies").on("click","img",function(){
 
 $("#characterstochoose").on("click","img",function(){
 
+if(lockAttacker === false)
+{
 // for picking a attacker and setting the enemy list
   if($(this).hasClass("characterImg"))
 {
@@ -197,6 +258,7 @@ $("#characterstochoose").on("click","img",function(){
   if(characters[i].name != $(this).attr("value") )
 
   {
+    randomSounds("pickSound");
     var newimg = $("<img>");
 
     var newdiv = $("<div>");
@@ -236,7 +298,7 @@ $("#characterstochoose").on("click","img",function(){
     newimg.attr("src", (characters[i].img));
     newimg.attr("value", (characters[i].name))
     newimg.attr("class", "characterImg");
-    $("#characterstochoose").append(newdiv);
+    $("#attacker").append(newdiv);
     newdiv.append(newimg)
 
     var newHit = $("<p>");
@@ -247,7 +309,7 @@ $("#characterstochoose").on("click","img",function(){
 
     newHit.attr("class","stats");
     newName.attr("class","stats");
-    
+
     newHit.html(characters[i].hitpoints)
     newName.html(characters[i].name)
 
@@ -260,48 +322,27 @@ $("#characterstochoose").on("click","img",function(){
     currentAttacker = characters[i].name;
     currentA = i;
 
-    trackingArray.splice((trackingArray.indexOf(currentAttacker)),1)
+    lockAttacker = true;
 
   }
 }
 
+}
 }
 });
 
 
 $("#attack").on("click", function(){
 
-// check to see if hitpoints not below zero for either attacker or defender
-if(characters.length === 1)
-{
-  alert("game win")
-  gameWin = true;
-  return 0;
-}
 
+// only allow attack to happen if there is a defendr
 if(lockPlay != true)
 {
-if(characters[currentA].hitpoints <= 0)
-{
-  console.log("game over");
 
-}
-
-if(characters[currentD].hitpoints <= 0)
-
-{
-  console.log("victory");
-  $("#Defender").html("Empty select a new defender")
-  lastDefender= currentDefender;
-  characters.splice(currentD,1);
-  lockPlay = true;
-}
-
+// game logic
 $(".characterImg").each(function()
 
 {
-
-
 
   if($(this).attr("value") === currentDefender)
 {
@@ -322,18 +363,51 @@ $(".characterImg").each(function()
 
   }
 
+  $("#battleText").html("You Attacked " + (currentDefender) + " for " + (characters[currentA].attackPwr) + " damage"  + "<br>"  +  (currentDefender) + " attacked you back for " + (characters[currentD].counteratkPwr) + " damage" )
+
+
 });
 
 characters[currentA].attackPwr =  parseInt(characters[currentA].attackPwr) +  parseInt(characters[currentA].attackPwr);
 
+if(characters[currentD].hitpoints <= 0)
+
+{
+
+  console.log("victory");
+  lastDefender= currentDefender;
+  characters.splice(currentD,1,"");
+  trackingArray.splice((trackingArray.indexOf(currentDefender)),1)
+  lockPlay = true;
+  randomSounds("attackSpin");
+  $("#battleText").empty();
+  $("#Defender").empty();
+  lockEnemies=false;
+}
 
 
-
-updateStats()
+if(characters[currentA].hitpoints <= 0)
+{
+  console.log("game over");
 
 }
 
+
+if(trackingArray.length === 1)
+{
+  alert("game win")
+  gameWin = true;
+  return 0;
+}
+
+
+randomSounds("attackSound");
+
+updateStats();
+}
+
 });
+
 
 
 //
