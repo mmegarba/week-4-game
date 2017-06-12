@@ -3,9 +3,8 @@ var characters = [
   {
   name:"Darth Maul",
   hitpoints:"150",
-  attackPwr:"20",
-  counteratkPwr:"5",
-  name: "Darth Maul",
+  attackPwr:"9",
+  counteratkPwr:"20",
   img: "assets/images/Darth-Maul.jpeg",
 },
 
@@ -23,7 +22,7 @@ var characters = [
     name:"Darth Vader",
     hitpoints:"200",
     attackPwr:"5",
-    counteratkPwr:"5",
+    counteratkPwr:"20",
     img:"assets/images/Vader.jpg",
 },
 
@@ -38,8 +37,8 @@ var characters = [
 {
   name:"Yoda",
   hitpoints:"175",
-  attackPwr:"7",
-  counteratkPwr:"5",
+  attackPwr:"10",
+  counteratkPwr:"10",
   img:"assets/images/yoda.jpg",
 
 },
@@ -57,7 +56,7 @@ var lockAttacker = false;
 var lockEnemies = false;
 var trackingArray = ["Darth Maul","Obi Wan Kenobi","Darth Vader","Qui Gon Jinn","Yoda"];
 var sounds = [["assets/audio/saberon.mp3"],["assets/audio/saberclash.mp3","assets/audio/saberclash1.mp3","assets/audio/saberclash2.mp3","assets/audio/saberclash3.mp3"],["assets/audio/spin1.mp3","assets/audio/spin2.mp3","assets/audio/spin6.mp3"]]
-
+var baseAtkPwr;
 
 
 $("#reset").on("click", function()
@@ -321,7 +320,7 @@ if(lockAttacker === false)
 
     currentAttacker = characters[i].name;
     currentA = i;
-
+    baseAtkPwr=characters[currentA].attackPwr;
     lockAttacker = true;
 
   }
@@ -368,7 +367,7 @@ $(".characterImg").each(function()
 
 });
 
-characters[currentA].attackPwr =  parseInt(characters[currentA].attackPwr) +  parseInt(characters[currentA].attackPwr);
+characters[currentA].attackPwr =  parseInt(characters[currentA].attackPwr) +  parseInt(baseAtkPwr);
 
 if(characters[currentD].hitpoints <= 0)
 
