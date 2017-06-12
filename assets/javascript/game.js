@@ -407,6 +407,7 @@ if(characters[currentD].hitpoints <= 0)
   randomSounds("attackSpin");
   $("#battleText").empty();
   $("#Defender").empty();
+  currentDefender = ""
   lockEnemies=false;
 }
 
@@ -432,6 +433,17 @@ updateStats();
 
 });
 
+$("#playMusic").on("click",function()
+{
+  $("#mobileAudio")[0].play();
+
+});
+
+$("#pauseMusic").on("click",function()
+{
+  $("#mobileAudio")[0].pause();
+
+});
 
 
 //

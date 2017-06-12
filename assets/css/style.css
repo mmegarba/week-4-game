@@ -1,3 +1,9 @@
+
+
+
+
+
+
 body{
   background-image:url("../images/starwars.jpg");
   font-family: 'Overpass', sans-serif;
@@ -130,4 +136,21 @@ margin-left:25%;
 }
 h2{
   color:red;
+  font-size: 18pt;
+}
+
+.musicBtn{
+
+    position:relative;
+  display:none;
+  margin-bottom:20px;
+  left:60px
+}
+
+@media screen and (max-width:640px){
+  .musicBtn{
+
+    display:block !important;
+  }
+
 }
