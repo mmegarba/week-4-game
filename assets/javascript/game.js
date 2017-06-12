@@ -4,7 +4,7 @@ var characters = [
   name:"Darth Maul",
   hitpoints:"150",
   attackPwr:"9",
-  counteratkPwr:"20",
+  counteratkPwr:"15",
   img: "assets/images/Darth-Maul.jpeg",
 },
 
