@@ -10,7 +10,7 @@ var characters = [
 
   {
     name:"Obi Wan Kenobi",
-    hitpoints:"100",
+    hitpoints:"135",
     attackPwr:"10",
     counteratkPwr:"10",
     img:"assets/images/Obi-Wan.jpg",
@@ -21,24 +21,24 @@ var characters = [
 {
     name:"Darth Vader",
     hitpoints:"200",
-    attackPwr:"5",
-    counteratkPwr:"20",
+    attackPwr:"3",
+    counteratkPwr:"15",
     img:"assets/images/Vader.jpg",
 },
 
 {
     name:"Qui Gon Jinn",
-    hitpoints:"125",
-    attackPwr:"7",
-    counteratkPwr:"5",
+    hitpoints:"140",
+    attackPwr:"9",
+    counteratkPwr:"7",
     img:"assets/images/Qui Gon Jinn.jpeg",
 },
 
 {
   name:"Yoda",
   hitpoints:"175",
-  attackPwr:"10",
-  counteratkPwr:"10",
+  attackPwr:"5",
+  counteratkPwr:"11",
   img:"assets/images/yoda.jpg",
 
 },
